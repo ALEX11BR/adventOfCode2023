@@ -1,16 +1,21 @@
 use std::io::stdin;
 
-fn neighbors_a_symbol(chars: &Vec<Vec<char>>, i: usize, j: usize) -> bool {
-    let i_min = if i != 0 {i-1} else {0};
-    let i_max = if i < chars.len() - 1 {i+1} else {i};
-    let j_min = if j != 0 {j-1} else {0};
-    let j_max = if j < chars[i].len() - 1 {j+1} else {j};
+#[derive(Debug, Clone, Copy, Default)]
+struct Number {
+    line: usize,
+    c_start: usize,
+    c_end: usize,
+    value: u32,
+}
 
-    for ii in i_min..=i_max {
-        for jj in j_min..=j_max {
-            if !chars[ii][jj].is_ascii_alphanumeric() && chars[ii][jj] != '.' {
-                return true;
-            }
+fn neighbors_the_number(gear: (usize, usize), number: Number) -> bool {
+    if gear.0.abs_diff(number.line) > 1 {
+        return false;
+    }
+
+    for k in number.c_start..=number.c_end {
+        if k.abs_diff(gear.1) <= 1 {
+            return true;
         }
     }
     false
@@ -28,25 +33,59 @@ fn main() {
         .collect::<Vec<_>>();
 
     let mut result = 0;
+    let mut gears = Vec::<(usize, usize)>::new();
+    let mut numbers = Vec::<Number>::new();
+
     for i in 0..chars.len() {
-        let mut current_number = 0;
-        let mut neighbors_symbols = false;
+        let mut current_number = Number::default();
+        let mut building_number = false;
 
         for j in 0..chars[i].len() {
             if let Some(digit) = chars[i][j].to_digit(10) {
-                current_number = current_number * 10 + digit;
-                neighbors_symbols |= neighbors_a_symbol(&chars, i, j);
-            } else {
-                if neighbors_symbols {
-                    result += current_number;
+                if !building_number {
+                    building_number = true;
+                    current_number = Number {
+                        line: i,
+                        c_start: j,
+                        c_end: j,
+                        value: 0
+                    };
                 }
-                current_number = 0;
-                neighbors_symbols = false;
+                current_number.value = current_number.value * 10 + digit;
+                current_number.c_end = j;
+            } else {
+                if building_number {
+                    numbers.push(current_number);
+                    building_number = false;
+                }
+
+                if chars[i][j] == '*' {
+                    gears.push((i, j));
+                }
             }
         }
 
-        if neighbors_symbols {
-            result += current_number;
+        if building_number {
+            numbers.push(current_number);
+        }
+    }
+
+    for gear in gears.iter() {
+        let mut number_count = 0;
+        let mut gear_ratio = 1;
+
+        for number in numbers.iter() {
+            if neighbors_the_number(*gear, *number) {
+                number_count += 1;
+                if number_count > 2 {
+                    break;
+                }
+                gear_ratio *= number.value;
+            }
+        }
+
+        if number_count == 2 {
+            result += gear_ratio;
         }
     }
 
