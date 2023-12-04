@@ -13,3 +13,7 @@ version = "0.1.0"
 [[package]]
 name = "ex3"
 version = "0.1.0"
+
+[[package]]
+name = "ex4"
+version = "0.1.0"
