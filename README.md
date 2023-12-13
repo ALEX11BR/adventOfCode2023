@@ -3,6 +3,13 @@
 In every `ex{day}` folder there are my solutions to that day's problems.
 The day's input sits in that folder in a file named `input` (I don't publish them here).
 
+The programs get their input from a stdin with an end.
+This can be accomplished, for instance, by:
+
+- redirecting the input file into the program,
+- heredocs,
+- typing the input followed by a `^D`.
+
 Certain solutions have caveats: they have a comment at the beginning with details.
 These are:
 
