@@ -79,6 +79,13 @@ name = "ex15"
 version = "0.1.0"
 
 [[package]]
+name = "ex16"
+version = "0.1.0"
+dependencies = [
+ "itertools",
+]
+
+[[package]]
 name = "ex2"
 version = "0.1.0"
 
