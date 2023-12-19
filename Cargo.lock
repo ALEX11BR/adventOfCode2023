@@ -101,6 +101,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "ex19"
+version = "0.1.0"
+dependencies = [
+ "itertools",
+ "regex",
+]
+
+[[package]]
 name = "ex2"
 version = "0.1.0"
 
