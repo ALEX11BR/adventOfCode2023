@@ -113,6 +113,14 @@ name = "ex2"
 version = "0.1.0"
 
 [[package]]
+name = "ex20"
+version = "0.1.0"
+dependencies = [
+ "itertools",
+ "regex",
+]
+
+[[package]]
 name = "ex3"
 version = "0.1.0"
 
