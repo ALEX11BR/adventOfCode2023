@@ -122,6 +122,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "ex21"
+version = "0.1.0"
+dependencies = [
+ "itertools",
+]
+
+[[package]]
 name = "ex3"
 version = "0.1.0"
 
