@@ -15,6 +15,7 @@ These are:
 
 - Day 5, part 2: inefficient implementation that takes 6m 14s.
 - Day 10, part 2: submitted about 1h 20min after day 11 started.
+- day 24, part 2: uses `z3`, a crate that can be tricky to compile.
 
 ## Run
 ```sh
